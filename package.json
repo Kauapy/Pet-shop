@@ -1,0 +1,20 @@
+{
+  "name": "pet-shop",
+  "version": "1.0.0",
+  "description": "Projeto de validação de formulário",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kauapy/Pet-shop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kauapy/Pet-shop/issues"
+  },
+  "homepage": "https://github.com/Kauapy/Pet-shop#readme"
+}
