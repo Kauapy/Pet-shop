@@ -54,6 +54,7 @@ body {
     font-size: var(--fonte-tamanho-botao);
     align-self: center;
     text-align: center;
+    cursor: pointer;
 }
 
 .botao-simples {

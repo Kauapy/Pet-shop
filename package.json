@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Projeto de validação de formulário",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "start": "node js/validacao.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

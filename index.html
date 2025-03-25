@@ -18,7 +18,7 @@
         </div>
         <section class="cartao">
             <h2 class="cartao__titulo">Complete seu cadastro</h2>
-            <form action="index02.html" class="formulario flex flex--coluna">
+            <form action="index02.html" class="formulario flex flex--coluna" method="post">
                 <fieldset>
                     <legend class="formulario__legenda">Informações básicas</legend>
                     <div class="input-container">
@@ -46,7 +46,7 @@
                         <span class="input-mensagem-erro">Este campo não está válido</span>
                     </div>
                     <div class="input-container">
-                        <input name="cpf" id="cpf" class="input" type="text" placeholder="CPF">
+                        <input name="cpf" id="cpf" class="input" type="text" placeholder="CPF" data-tipo="cpf" required>
                         <label class="input-label" for="cpf">CPF</label>
                         <span class="input-mensagem-erro">Este campo não está válido</span>
                     </div>
