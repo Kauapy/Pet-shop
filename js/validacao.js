@@ -41,12 +41,38 @@ const mensagensDeErro = {
     cpf: {
         valueMissing: 'O campo de CPF não pode estar vazio.',
         customError: 'O CPF digitado não é válido.'
+    },
+
+    cep: {
+        valueMissing: 'O campo de CEP não pode estar vazio.',
+        patternMismatch: 'O CEP digitado não é válido.',
+        customError: 'Não foi possível buscar o CEP.'
+    },
+
+    logradouro: {
+        valueMissing: 'O campo de logradouro não pode estar vazio.'
+    },
+
+    cidade: {
+        valueMissing: 'O campo de cidade não pode estar vazio.'
+    },
+
+    estado: {
+        valueMissing: 'O campo de estado não pode estar vazio.'
+    }, 
+
+    preco: {
+        valueMissing: 'O campo de preço não pode estar vazio.',
+        patternMismatch: "O preço deve estar no formato correto (ex: 10.99)."
     }
 }
 
 const validadores = {
     dataNascimento:input => validaDataNascimento(input),
-    cpf:input => validaCPF(input)
+    cpf:input => validaCPF(input),
+    cep:input =>  recuperarCEP(input),
+    preco:input => validaPreco(input)
+    
 }
 
 function mostraMensagemDeErro(tipoDeInput, input) {
@@ -104,7 +130,6 @@ function checaCPFRepetido(cpf){
         '99999999999'
     ]
     
-    let cpfValido = true
 
     if(valoresRepetidos.includes(cpf)){
         return false
@@ -145,6 +170,52 @@ function confirmaDigito(soma){
     return 11 - (soma % 11)
 }
 
+function recuperarCEP(input){
+    const cep = input.value.replace(/\D/g, '')
+    const url = `https://viacep.com.br/ws/${cep}/json/`
+    const options = {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+            'content-type': 'application/json;charset=utf-8'
+        }
+    }
+
+    if(!input.validity.patternMismatch && !input.validity.valueMissing){
+        fetch(url, options).then(
+            Response => Response.json()
+        ).then(
+            data => {
+                if(data.errro){
+                    input.setCustomValidity("Não foi possível buscar o CEP")
+                    return
+                }
+                input.setCustomValidity('')
+                preencheCamposComCEP(data)
+                return
+            }
+        )
+    }
+}
 
 
-    //let soma = (11 * 1) + (10 * 2) + (9 * 3)
+function preencheCamposComCEP(data){
+    const logradouro = document.querySelector('[data-tipo="logradouro"]')
+    const cidade = document.querySelector('[data-tipo="cidade"]')
+    const estado = document.querySelector('[data-tipo="estado"]')
+
+
+    logradouro.value = data.logradouro
+    cidade.value = data.localidade
+    estado.value = data.uf
+    
+}
+
+
+function validaPreco(input) {
+    if (input.value.trim() === "") {
+        input.setCustomValidity("O campo de preço não pode estar vazio.");
+    } else {
+        input.setCustomValidity("");
+    }
+}
